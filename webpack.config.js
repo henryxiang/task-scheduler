@@ -55,7 +55,8 @@ var config = {
 		// new webpack.HotModuleReplacementPlugin(),
 		new HtmlWebpackPlugin({
 			title: 'Task Scheduler'
-		})
+		}),
+		new webpack.optimize.UglifyJsPlugin({minimize: true})
 	]
 };
 
