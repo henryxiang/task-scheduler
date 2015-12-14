@@ -1,55 +1,6 @@
 import React, { Component } from 'react';
+import TodoList from './TodoList.jsx';
 
-const Todo = ({
-  onClick,
-  completed,
-  text
-}) => (
-  <li
-    onClick={onClick}
-    style={{
-      textDecoration:
-        completed ?
-          'line-through' :
-          'none'
-    }}
-  >
-    {text}
-  </li>
-);
-
-const TodoList = ({
-  todos,
-  onTodoClick
-}) => (
-  <ul>
-    {todos.map(todo =>
-      <Todo
-        key={todo.id}
-        {...todo}
-        onClick={() => onTodoClick(todo.id)}
-      />
-    )}
-  </ul>
-);
-
-const getVisibleTodos = (
-  todos,
-  filter
-) => {
-  switch (filter) {
-    case 'SHOW_ALL':
-      return todos;
-    case 'SHOW_COMPLETED':
-      return todos.filter(
-        t => t.completed
-      );
-    case 'SHOW_ACTIVE':
-      return todos.filter(
-        t => !t.completed
-      );
-  }
-}
 
 class VisibleTodoList extends Component {
   componentDidMount() {
@@ -62,6 +13,21 @@ class VisibleTodoList extends Component {
   componentWillUnmount() {
     this.unsubscribe();
   }
+
+  getVisibleTodos(todos, filter) {
+    switch (filter) {
+      case 'SHOW_ALL':
+        return todos;
+      case 'SHOW_COMPLETED':
+        return todos.filter(
+          t => t.completed
+        );
+      case 'SHOW_ACTIVE':
+        return todos.filter(
+          t => !t.completed
+        );
+    }
+  }
   
   render() {
     const props = this.props;
@@ -70,19 +36,19 @@ class VisibleTodoList extends Component {
     
     return (
       <TodoList
-        todos={
-          getVisibleTodos(
-            state.todos,
-            state.visibilityFilter
-          )
-        }
+        todos={this.getVisibleTodos(state.todos, state.visibilityFilter)}
         onTodoClick={id =>
           store.dispatch({
             type: 'TOGGLE_TODO',
             id
           })            
         }
-      />
+        onRemoveTodo={id =>
+          store.dispatch({
+            type: 'REMOVE_TODO',
+            id
+          }) 
+        }/>
     );
   }
 }

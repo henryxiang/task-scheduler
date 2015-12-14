@@ -1,4 +1,19 @@
 import { createStore, combineReducers } from 'redux';
+import moment from 'moment';
+
+
+const getInitialState = () => {
+  const tasks = [];
+  for (let i = 1; i <= 5; i++) {
+    const task = {};
+    task.id = i;
+    task.text = `Task ${i}`;
+    task.completed = false;
+    task.deadline = moment('2015-09-30 17:00').add(i, 'M');
+    tasks.push(task);
+  }
+  return tasks;
+};
 
 const todo = (state, action) => {
   switch (action.type) {
@@ -6,6 +21,7 @@ const todo = (state, action) => {
       return {
         id: action.id,
         text: action.text,
+        deadline: action.deadline,
         completed: false
       };
     case 'TOGGLE_TODO':
@@ -22,7 +38,7 @@ const todo = (state, action) => {
   }
 };
 
-const todos = (state = [], action) => {
+const todos = (state = getInitialState.call(null), action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [
@@ -32,6 +48,10 @@ const todos = (state = [], action) => {
     case 'TOGGLE_TODO':
       return state.map(t =>
         todo(t, action)
+      );
+    case 'REMOVE_TODO':
+      return state.filter(t =>
+        t.id != action.id
       );
     default:
       return state;
@@ -50,11 +70,10 @@ const visibilityFilter = (
   }
 };
 
+// app main reducer function
 const todoApp = combineReducers({
   todos,
   visibilityFilter
 });
 
 export default createStore(todoApp);
-
-

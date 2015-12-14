@@ -1,40 +1,55 @@
-import React, { Component } from 'react'
+//import 'react-widgets/lib/less/react-widgets.less';
 
-let nextTodoId = 0;
+import React, { Component } from 'react'
+import { DateTimePicker } from 'react-widgets';
+import { Input, Button, Row, Col, Glyphicon } from 'react-bootstrap';
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+
+momentLocalizer(Moment);
+
+let nextTodoId = 10;
 
 const AddTodo = (props, { store }) => {
-  let input;
+  let input, inputDate;
 
   const addNewTodo = () => {
-    store.dispatch({
-      type: 'ADD_TODO',
-      id: nextTodoId++,
-      text: input.value
-    });
-    input.value = '';
+    if (input.getValue() !== '' && inputDate != null) {
+      store.dispatch({
+        type: 'ADD_TODO',
+        id: nextTodoId++,
+        text: input.getValue(),
+        deadline: inputDate
+      });
+      input.getInputDOMNode().value= '';
+    }
   };
 
   const inputEntered = (e) => {
     if (e.keyCode == 13) {
-      store.dispatch({
-        type: 'ADD_TODO',
-        id: nextTodoId++,
-        text: input.value
-      });
-      input.value = '';
+      addNewTodo.call(this);
     }
   };
 
   return (
     <div>
-      <input ref={node => {
-          input = node;
-        }} 
-        onKeyDown={inputEntered.bind(this)}
-      />
-      <button onClick={addNewTodo.bind(this)}>
-        Add Todo
-      </button>
+      <Row>
+        <Col xs={5}>
+          <Input 
+            type="text" 
+            placeholder="Enter a task" 
+            ref={comp => input = comp}/>
+        </Col>
+        <Col xs={3}>
+          <DateTimePicker onChange={value => inputDate = value}/>
+        </Col>
+        <Col xs={1}>
+          <Button bsStyle="primary" onClick={addNewTodo.bind(this)}>
+            <Glyphicon glyph="plus" />   
+          </Button>
+        </Col>
+      </Row>
+      
     </div>
   );
 };

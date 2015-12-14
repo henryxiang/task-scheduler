@@ -1,3 +1,7 @@
+import './css/bootstrap.min.css'
+import './css/react-widgets.css';
+//import './css//main.css';
+
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { Provider } from 'react-redux';
@@ -15,4 +19,3 @@ ReactDOM.render(
   </Provider>,
   appRootElement
 );
-

@@ -1,15 +1,17 @@
 import React from 'react';
+import { Panel } from 'react-bootstrap';
 import AddTodo from './AddTodo.jsx';
 import VisibleTodoList from './VisibleTodoList.jsx';
 import Footer from './Footer.jsx';
 
+const title = (<h3>Task Scheduler</h3>);
+
 const TodoApp = () => (
-  <div>
+  <Panel header={title}>
     <AddTodo />
     <VisibleTodoList />
     <Footer />
-  </div>
+  </Panel>
 );
 
 export default TodoApp;
-
