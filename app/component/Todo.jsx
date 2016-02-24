@@ -1,16 +1,17 @@
 import React from 'react';
-import { Row, Col, Glyphicon, Button} from 'react-bootstrap';
+import { Row, Col, Glyphicon, Button, ButtonGroup } from 'react-bootstrap';
 import moment from 'moment';
 
 const Todo = ({
   onClick,
   onRemove,
+  onSave,
   completed,
   text,
   deadline
 }) => (
-    <Row onClick={onClick}>
-      <Col xs={6}>
+    <Row onClick={onClick} style={{cursor:'pointer'}}>
+      <Col xs={5}>
         {text}
       </Col>
       <Col xs={3}>
@@ -19,8 +20,11 @@ const Todo = ({
       <Col xs={2}>
         {completed ? 'Completed' : 'Active'}
       </Col>
-      <Col xs={1}>
-        <Button onClick={onRemove}><Glyphicon glyph="remove" /></Button>
+      <Col xs={2}>
+        <ButtonGroup>
+          <Button onClick={onRemove}><Glyphicon glyph="remove" /></Button>
+          <Button onClick={onSave}><Glyphicon glyph="floppy-disk" /></Button>
+        </ButtonGroup>
       </Col>
     </Row>
 );
