@@ -5,7 +5,6 @@ import moment from 'moment';
 const Todo = ({
   onClick,
   onRemove,
-  onSave,
   completed,
   text,
   deadline
@@ -23,7 +22,6 @@ const Todo = ({
       <Col xs={2}>
         <ButtonGroup>
           <Button onClick={onRemove}><Glyphicon glyph="remove" /></Button>
-          <Button onClick={onSave}><Glyphicon glyph="floppy-disk" /></Button>
         </ButtonGroup>
       </Col>
     </Row>
