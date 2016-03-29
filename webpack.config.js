@@ -2,7 +2,6 @@ var path = require('path');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 const TARGET = process.env.npm_lifecycle_event;
 const PATHS = {
@@ -11,12 +10,9 @@ const PATHS = {
 };
 
 var config = {
-	entry: {
-		app: path.resolve(__dirname, 'app/index.js'),
-		vendors: ['react', 'react-dom', 'react-bootstrap', 'react-widgets', 'react-redux', 'redux', 'moment']
-	},
+	entry: PATHS.app,
 	output: {
-		path: path.resolve(__dirname, 'build'),
+		path: PATHS.build,
 		filename: 'bundle.js'
 	},
 	resolve: {
@@ -35,13 +31,12 @@ var config = {
 			{
 				test: /\.css$/,
 				include: PATHS.app,
-				//loader: "style-loader!css-loader"
-				loader: ExtractTextPlugin.extract("style-loader", "css-loader")
+				loader: "style-loader!css-loader"
 			},
-  		// { 
-  		// 	test: /\.less$/, 
-  		// 	loader: "style-loader!css-loader!less-loader" 
-  		// },
+  		{ 
+  			test: /\.less$/, 
+  			loader: "style-loader!css-loader!less-loader" 
+  		},
   		{ 
   			test: /\.gif$/, 
   			loader: "url-loader?mimetype=image/gif" 
@@ -49,11 +44,10 @@ var config = {
   		{ 
   			test: /\.woff(2)?(\?v=[0-9].[0-9].[0-9])?$/, 
   			loader: "url-loader?mimetype=application/font-woff" 
-  			//loader: "url?limit=250000" 
   		},
   		{ 
   			test: /\.(ttf|eot|svg)(\?v=[0-9].[0-9].[0-9])?$/, 
-  			loader: "url-loader?mimetype=application/font-[ext]" 
+  			loader: "file-loader?name=[name].[ext]" 
   		}
 		]
 	},
@@ -62,8 +56,6 @@ var config = {
 		new HtmlWebpackPlugin({
 			title: 'Task Scheduler'
 		}),
-		new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-		new ExtractTextPlugin("styles.css"),
 		new webpack.optimize.UglifyJsPlugin({minimize: true})
 	]
 };

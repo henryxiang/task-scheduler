@@ -1,5 +1,10 @@
+/*
+ * This is the component to show individual Todo object and
+ * an actionable "Remove" button to delete the current object.
+ */
+
 import React from 'react';
-import { Row, Col, Glyphicon, Button, ButtonGroup } from 'react-bootstrap';
+import { Row, Col, Glyphicon, Button} from 'react-bootstrap';
 import moment from 'moment';
 
 const Todo = ({
@@ -9,8 +14,8 @@ const Todo = ({
   text,
   deadline
 }) => (
-    <Row onClick={onClick} style={{cursor:'pointer'}}>
-      <Col xs={5}>
+    <Row onClick={onClick}>
+      <Col xs={6}>
         {text}
       </Col>
       <Col xs={3}>
@@ -19,10 +24,8 @@ const Todo = ({
       <Col xs={2}>
         {completed ? 'Completed' : 'Active'}
       </Col>
-      <Col xs={2}>
-        <ButtonGroup>
-          <Button onClick={onRemove}><Glyphicon glyph="remove" /></Button>
-        </ButtonGroup>
+      <Col xs={1}>
+        <Button onClick={onRemove}><Glyphicon glyph="remove" /></Button>
       </Col>
     </Row>
 );

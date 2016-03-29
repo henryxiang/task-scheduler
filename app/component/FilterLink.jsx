@@ -1,6 +1,12 @@
+/*
+ * This is a component that acts as filter that has a built-in
+ * counter for the filtered items.
+ */
+
 import React, { Component } from 'react';
 import { Badge, Button } from 'react-bootstrap';
 
+// The Link child component used by FilterLink
 const Link = ({
   active,
   children,
@@ -19,6 +25,9 @@ const Link = ({
   );
 };
 
+// The FilterLink component that has a counter of filtered items.
+// Another way to create a React component is to extends the 
+// React.Component class.
 class FilterLink extends Component {
   componentDidMount() {
     const { store } = this.context;
@@ -73,6 +82,8 @@ class FilterLink extends Component {
     );
   }
 }
+
+// Inject store object into the component's context
 FilterLink.contextTypes = {
   store: React.PropTypes.object
 };

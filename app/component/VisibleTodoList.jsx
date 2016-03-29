@@ -1,6 +1,11 @@
+/* 
+ * This is a container type component that provides
+ * data acess callback functions to the containing
+ * TodoList component
+ */
+
 import React, { Component } from 'react';
 import TodoList from './TodoList.jsx';
-
 
 class VisibleTodoList extends Component {
   componentDidMount() {
@@ -52,6 +57,8 @@ class VisibleTodoList extends Component {
     );
   }
 }
+
+// Inject store object into the component's context
 VisibleTodoList.contextTypes = {
   store: React.PropTypes.object
 };

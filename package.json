@@ -1,8 +1,8 @@
 {
-  "name": "redux-todomvc",
+  "name": "task-scheduler",
   "version": "1.0.0",
   "description": "",
-  "main": "index.jsx",
+  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server"
   },
@@ -16,7 +16,7 @@
     "babel-preset-react": "^6.1.18",
     "babel-preset-stage-0": "^6.3.13",
     "css-loader": "^0.23.0",
-    "extract-text-webpack-plugin": "^1.0.1",
+    "express": "^4.13.3",
     "file-loader": "^0.8.5",
     "html-webpack-plugin": "^1.7.0",
     "less": "^2.5.3",
@@ -29,11 +29,12 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "moment": "^2.10.6",
+    "node-uuid": "^1.4.7",
     "react": "^0.14.3",
     "react-bootstrap": "^0.28.1",
     "react-dom": "^0.14.3",
-    "react-redux": "^4.4.0",
+    "react-redux": "^4.0.6",
     "react-widgets": "^3.1.3",
-    "redux": "^3.3.1"
+    "redux": "^3.0.5"
   }
 }

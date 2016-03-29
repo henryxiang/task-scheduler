@@ -1,6 +1,11 @@
+/*
+ * This is a simple http server to serve
+ * the static contents in ./build/ directory
+ */
+
 var express = require('express'),
 	server = express(),
-	port = '8000',
+	port = '8080',
 	documentRoot = __dirname + '/build';
 
 console.log("Use document root: " + documentRoot);

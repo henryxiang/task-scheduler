@@ -1,4 +1,6 @@
-//import 'react-widgets/lib/less/react-widgets.less';
+/*
+ * This is a component to allow user to add a new task with deadline.
+ */
 
 import React, { Component } from 'react'
 import { DateTimePicker } from 'react-widgets';
@@ -13,6 +15,7 @@ let nextTodoId = 10;
 const AddTodo = (props, { store }) => {
   let input, inputDate;
 
+  // Callback function executed on the "Add" button clicked
   const addNewTodo = () => {
     if (input.getValue() !== '' && inputDate != null) {
       store.dispatch({
@@ -22,12 +25,6 @@ const AddTodo = (props, { store }) => {
         deadline: inputDate
       });
       input.getInputDOMNode().value= '';
-    }
-  };
-
-  const inputEntered = (e) => {
-    if (e.keyCode == 13) {
-      addNewTodo.call(this);
     }
   };
 
@@ -54,6 +51,7 @@ const AddTodo = (props, { store }) => {
   );
 };
 
+// Inject store object into the component's context
 AddTodo.contextTypes = {
   store: React.PropTypes.object
 };

@@ -1,10 +1,17 @@
+/*
+ * This is the Redux store that provide data access and
+ * state mutation via reducer funtions, which takes an
+ * action object as parameter and returns the mutated state.
+ */
+
 import { createStore, combineReducers } from 'redux';
 import moment from 'moment';
 
-
 const getInitialState = () => {
   const tasks = [];
-  for (let i = 1; i <= 5; i++) {
+  // Just create some dummy task object but we can use XHR
+  // to retrieve real data from the backend API
+  for (let i = 1; i <= 8; i++) {
     const task = {};
     task.id = i;
     task.text = `Task ${i}`;
@@ -15,6 +22,9 @@ const getInitialState = () => {
   return tasks;
 };
 
+// Reducer function to mutate the state of a single Todo object
+// based on an action, which is an object type that consists of 
+// a required 'type' key and data payload.
 const todo = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -38,6 +48,7 @@ const todo = (state, action) => {
   }
 };
 
+// Reducer function to mutate the state of a list of Todo objects
 const todos = (state = getInitialState.call(null), action) => {
   switch (action.type) {
     case 'ADD_TODO':
@@ -58,6 +69,7 @@ const todos = (state = getInitialState.call(null), action) => {
   }
 };
 
+// Reducer funtion to change the state of visibility filter
 const visibilityFilter = (
   state = 'SHOW_ALL',
   action
@@ -70,10 +82,12 @@ const visibilityFilter = (
   }
 };
 
-// app main reducer function
+// The application main reducer function
 const todoApp = combineReducers({
   todos,
   visibilityFilter
 });
 
+// Defines the Redux store object, which can be
+// later injected into component's context
 export default createStore(todoApp);
